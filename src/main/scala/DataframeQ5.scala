@@ -22,12 +22,11 @@ object DataframeQ5 {
       (3, "2025-01-01")
     ).toDF("event_id", "date")
 
-  val res = events.withColumn(
+   events.withColumn(
       "is_holiday",
       when(col("date").isin("2024-12-25", "2025-01-01"), true)
         .otherwise(false)
-    )
-    res.show()
+    ).show()
 
   }
 }

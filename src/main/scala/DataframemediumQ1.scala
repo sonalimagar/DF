@@ -20,9 +20,10 @@ object DataframemediumQ1 {
       (3, 25)
     ).toDF("item_id", "quantity")
 
-    inventory.withColumn("stock_level",when(col("quantity") < 10, "Low")
+    val df=inventory.withColumn("stock_level",when(col("quantity") < 10, "Low")
       .when(col("quantity") > 10 && col("quantity") < 20, "Medium")
-      .otherwise("High")).show()
+      .otherwise("High"))
+    df.show()
   }
 }
 

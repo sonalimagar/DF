@@ -20,7 +20,8 @@ object Dataframeq2 {
       (3, 73)
     ).toDF("student_id", "score")
 
-    grades.withColumn("grade",when(col("score") >= 50, "Pass").otherwise("Fail")).show()
+    val df=grades.withColumn("grade",when(col("score") >= 50, "Pass").otherwise("Fail"))
+    df.show()
   }
 
 }

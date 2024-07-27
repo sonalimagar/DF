@@ -21,10 +21,11 @@ object dataframeQ1 {
       (3, "Doe", 22)
     ).toDF("id", "name", "age")
 
-    employees.select(col("id"),col("name"),col("age")
+    val df=employees.select(col("id"),col("name"),col("age")
       ,when(col("age")>=18,"true")
       .otherwise("False")
-      .alias("is_adult")).show()
+      .alias("is_adult"))
+    df.show()
 
   }
 

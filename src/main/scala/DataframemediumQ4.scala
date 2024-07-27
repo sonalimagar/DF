@@ -2,8 +2,9 @@ import org.apache.spark.SparkConf
 import org.apache.spark.sql.SparkSession
 import org.apache.spark.sql.functions.{col, when}
 
-object DataframeQ3 {
+object DataframemediumQ4 {
   def main(args: Array[String]): Unit = {
+
     val sparkconf = new SparkConf()
     sparkconf.set("spark.app.name","SPark-program")
     sparkconf.set("spark.master","local[*]")
@@ -13,18 +14,15 @@ object DataframeQ3 {
       .getOrCreate()
 
     import spark.implicits._
-    val transactions = List(
-      (1, 1000),
-      (2, 200),
-      (3, 5000),
-      (4,700)
-    ).toDF("transaction_id", "amount")
+    val sales = List(
+      (1, 100),
+      (2, 1500),
+      (3, 300)
+    ).toDF("sale_id", "amount")
 
-
-    val df=transactions.withColumn("category",when(col("amount")>1000 ,"High")
-      .when(col("amount")>500 && col("amount")<1000,"Medium")
-      .otherwise("low"))
-    df.show()
+    sales.withColumn("discount ",when(col("amount")<200 ,"0")
+      .when(col("amount")>200 && col("amount")<1000,"10")
+      .otherwise("20")).show()
   }
 
 }

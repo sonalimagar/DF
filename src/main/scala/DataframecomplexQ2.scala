@@ -2,8 +2,9 @@ import org.apache.spark.SparkConf
 import org.apache.spark.sql.SparkSession
 import org.apache.spark.sql.functions.{col, when}
 
-object DataframeQ3 {
+object DataframecomplexQ2 {
   def main(args: Array[String]): Unit = {
+
     val sparkconf = new SparkConf()
     sparkconf.set("spark.app.name","SPark-program")
     sparkconf.set("spark.master","local[*]")
@@ -13,18 +14,16 @@ object DataframeQ3 {
       .getOrCreate()
 
     import spark.implicits._
-    val transactions = List(
-      (1, 1000),
-      (2, 200),
-      (3, 5000),
-      (4,700)
-    ).toDF("transaction_id", "amount")
+    val reviews = List(
+      (1, 1),
+      (2, 4),
+      (3, 5)
+    ).toDF("review_id", "rating")
 
-
-    val df=transactions.withColumn("category",when(col("amount")>1000 ,"High")
-      .when(col("amount")>500 && col("amount")<1000,"Medium")
-      .otherwise("low"))
-    df.show()
+    reviews.withColumn("feedback",when(col("rating")<3,"Bad")
+      .when(col("rating")==3 ||col("rating")==4,"Good")
+      .otherwise()
+    )
   }
 
 }

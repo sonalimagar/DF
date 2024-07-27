@@ -20,9 +20,10 @@ object DatafraneQ4 {
       (3, 75.25)
     ).toDF("product_id", "price")
 
-    products.withColumn("price_range",when(col("price")<50,"Cheap")
+    val df=products.withColumn("price_range",when(col("price")<50,"Cheap")
       .when(col("price")>50 && col("price")<100,"Moderate")
-      .otherwise("Expensive" )).show()
+      .otherwise("Expensive" ))
+    df.show()
   }
 
 }
